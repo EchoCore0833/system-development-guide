@@ -118,10 +118,14 @@ PHP、HTML、CSS、JavaScriptなどのファイルを編集できる。
 | XAMPP | 8.2.12 |
 | PHP | 8.2.12（XAMPP同梱） |
 | Composer | 2.x系 |
-| CakePHP | 5.2系 |
+| CakePHP | 5.4.3 |
 | Visual Studio Code | インストール時の安定版 |
 
-※ 上記は暫定バージョンであり、開発チームで正式に決定した段階で修正する。
+CakePHP本体は5.4.3を使用する。その他のソフトウェアは暫定バージョンであり、開発チームで正式に決定した段階で修正する。
+
+CakePHP 5.4.3にはPHP 8.2以上が必要である。本マニュアルではXAMPP同梱のPHP 8.2.12を使用する。
+
+参考：[CakePHP 5.4.3の依存条件（公式）](https://github.com/cakephp/cakephp/blob/5.4.3/composer.json)
 
 #### 確認事項
 

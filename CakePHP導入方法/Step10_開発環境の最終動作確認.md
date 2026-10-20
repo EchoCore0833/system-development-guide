@@ -107,6 +107,15 @@ php bin\cake.php --help
 
 CakePHPで使用できるコマンドの一覧やヘルプが表示されれば成功となる。
 
+続いて、本体のバージョンと実行環境の要件を確認する。
+
+```cmd
+composer show cakephp/cakephp
+composer check-platform-reqs
+```
+
+`versions` に `5.4.3` が表示され、PHPと拡張機能の要件チェックが成功することを確認する。
+
 #### 手順3：開発サーバーを起動する
 
 以下を実行する。

@@ -188,8 +188,10 @@ php -m
 
 ```cmd
 cd /d C:\xampp\htdocs
-composer create-project --prefer-dist cakephp/app:"5.2.*" cakephp-app
+composer create-project --prefer-dist cakephp/app:"5.4.0" cakephp-app
 ```
+
+作成が成功したら、ステップ6の「手順7：CakePHP本体を5.4.3に固定する」を実行する。
 
 ※ 失敗時に作成された `cakephp-app` フォルダーが残っている場合は、内容を確認する。削除する場合は、今回の失敗で作成された不要なフォルダーであることを確認する。
 

@@ -71,7 +71,8 @@ C:\xampp\htdocs>
 以下のコマンドを実行する。
 
 ```cmd
-composer create-project --prefer-dist cakephp/app:"5.2.*" cakephp-app
+cd /d C:\xampp\htdocs\cakephp-app
+composer require "cakephp/cakephp:5.4.3" --with-all-dependencies
 ```
 
 コマンドの意味は以下のとおり。
@@ -81,7 +82,7 @@ composer create-project --prefer-dist cakephp/app:"5.2.*" cakephp-app
 | `composer` | Composerを実行する |
 | `create-project` | 新しいプロジェクトを作成する |
 | `--prefer-dist` | 配布用パッケージを優先する |
-| `cakephp/app:"5.2.*"` | CakePHPアプリケーションテンプレートの5.2系を指定する |
+| `cakephp/app:"5.4.0"` | CakePHPアプリケーションテンプレートの5.4.0を指定する |
 | `cakephp-app` | 作成するフォルダー名 |
 
 ※ `cakephp/app` はCakePHPアプリケーションのひな形であり、必要なパッケージはComposerが依存関係を解決して導入する。
@@ -128,7 +129,7 @@ php -m
 
 ```cmd
 cd /d C:\xampp\htdocs
-composer create-project --prefer-dist cakephp/app:"5.2.*" cakephp-app
+composer create-project --prefer-dist cakephp/app:"5.4.0" cakephp-app
 ```
 
 **注意：** インストール失敗時に `C:\xampp\htdocs\cakephp-app` フォルダーが作成されている場合は、再実行前に確認する。
@@ -176,6 +177,21 @@ CakePHPでは、ログやキャッシュなどを保存するため、対象フ�
 
 `src`、`config`、`templates`、`webroot` などのフォルダーが作成されていることを確認する。<br>
 <img src="../image/CakePHPの導入方法/Step6/image4.png" width="700">
+
+#### 手順7：CakePHP本体を5.4.3に固定する
+
+`cakephp/app` はひな形のバージョンであり、CakePHP本体とは別である。プロジェクト作成後に以下を実行し、本体を5.4.3に固定する。
+
+```cmd
+cd /d C:\xampp\htdocs\cakephp-app
+composer require cakephp/cakephp:5.4.3 --with-all-dependencies
+composer show cakephp/cakephp
+composer check-platform-reqs
+```
+
+`versions` に `5.4.3` が表示され、実行環境の要件チェックが成功することを確認する。
+
+`composer.json` と `composer.lock` をチームで共有し、他のPCでは `composer install` を実行する。
 
 ### 6-4. プロジェクトのフォルダー構成を確認する
 
@@ -257,3 +273,145 @@ php bin\cake.php --help
 CakePHPのコマンド一覧やヘルプが表示されれば、CakePHPのコマンドラインツールが正常に動作していることを確認できる。
 
 ※ データベース接続の設定は、ステップ8「データベースの設定」で行う。
+
+### 6-4. 既存のCakePHPを5.4.3にアップデートする
+
+**バージョンが5.4.3の人はこの工程はスキップしてください。**
+
+すでにCakePHP 5.2系をインストールしている場合は、プロジェクトを新しく作り直す必要はない。
+
+Composerを使用して、既存のプロジェクトをCakePHP 5.4.3にアップデートする。
+
+**注意：** この手順は、すでにCakePHPのプロジェクトが作成されている人向けである。新規インストールを行った場合は、この項目を省略する。
+
+#### 手順1：プロジェクトをバックアップする
+
+アップデートによって、CakePHP本体や依存ライブラリが変更される。
+
+作業前にプロジェクトフォルダーをバックアップするか、Gitで現在の変更内容をコミットしておく。
+
+今回のプロジェクトフォルダー：
+
+`C:\xampp\htdocs\cakephp-app`
+
+※ アップデートによって既存の設定ファイルが自動的にすべて更新されるわけではない。
+
+#### 手順2：コマンドプロンプトを起動する
+
+1. Windowsのスタートメニューを開く。
+2. 検索欄に `cmd` と入力する。
+3. 「コマンドプロンプト」をクリックする。
+
+#### 手順3：プロジェクトフォルダーへ移動する
+
+以下のコマンドを実行する。
+
+```cmd
+cd /d C:\xampp\htdocs\cakephp-app
+```
+
+#### 手順4：現在のCakePHPのバージョンを確認する
+
+以下のコマンドを実行する。
+
+```cmd
+composer show cakephp/cakephp
+```
+
+`versions` に現在インストールされているCakePHP本体のバージョンが表示される。
+
+表示例：
+
+```text
+versions : * 5.2.15
+```
+
+※ バージョン番号は環境によって異なる。
+
+#### 手順5：CakePHP本体を5.4.3にアップデートする
+
+以下のコマンドを実行する。
+
+```cmd
+composer require "cakephp/cakephp:5.4.3" --with-all-dependencies
+```
+
+このコマンドでは、CakePHP本体のバージョンを5.4.3に指定し、必要な依存パッケージも更新する。
+
+| コマンドの部分 | 意味 |
+|---|---|
+| `composer` | Composerを実行する |
+| `require` | プロジェクトで使用するパッケージを指定する |
+| `cakephp/cakephp:5.4.3` | CakePHP本体を5.4.3に固定する |
+| `--with-all-dependencies` | 関連する依存パッケージの更新も許可する |
+
+Composerが依存関係を確認し、必要なパッケージをダウンロード・更新する。
+
+処理が完了し、コマンド入力待ちの状態に戻るまで待つ。
+
+※ エラーが発生した場合は、エラーメッセージを確認する。依存パッケージの互換性によっては、追加の対応が必要となる場合がある。
+
+#### 手順6：アップデート後のバージョンを確認する
+
+以下のコマンドを実行する。
+
+```cmd
+composer show cakephp/cakephp
+```
+
+次のように表示されれば、CakePHP本体の更新が完了している。
+
+```text
+versions : * 5.4.3
+```
+
+#### 手順7：PHPの動作要件を確認する
+
+以下のコマンドを実行する。
+
+```cmd
+composer check-platform-reqs
+```
+
+PHPのバージョンや拡張機能などが、インストールされたパッケージの動作要件を満たしているか確認する。
+
+エラーが表示された場合は、不足しているPHP拡張機能やバージョンを確認する。
+
+#### 手順8：CakePHPの動作を確認する
+
+以下のコマンドで開発サーバーを起動する。
+
+```cmd
+php bin\cake.php server
+```
+
+ブラウザで以下のURLにアクセスする。
+
+`http://localhost:8765/`
+
+CakePHPの初期画面が正常に表示されることを確認する。
+
+データベースを設定済みの場合は、データベース接続も正常であることを確認する。
+
+動作確認が完了したら、コマンドプロンプトで `Ctrl + C` を押して開発サーバーを停止する。
+
+#### 手順9：アップデート後の変更を保存する
+
+アップデートにより、主に以下のファイルが変更される。
+
+- `composer.json`：使用するパッケージとバージョンの定義
+- `composer.lock`：実際にインストールする依存パッケージのバージョン情報
+
+チーム開発では、これらのファイルをGitで管理し、変更内容を共有する。
+
+他の開発メンバーは、更新されたファイルを取得した後、プロジェクトフォルダーで以下を実行する。
+
+```cmd
+composer install
+```
+
+これにより、`composer.lock` に記録された依存パッケージがインストールされる。
+
+**注意：** CakePHP本体の更新だけでは、古いアプリケーションの設定ファイルやコードが自動的に新しい仕様へ変更されるわけではない。5.3および5.4の移行ガイドを確認し、必要な修正を行う。
+
+以上で、既存のCakePHPを5.4.3にアップデートする作業は完了となる。
