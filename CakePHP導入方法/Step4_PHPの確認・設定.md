@@ -64,7 +64,7 @@ PATHを設定すると、PHPの実行ファイルをフルパスで指定せず�
 #### 手順2：Pathを編集する
 
 「XXXXのユーザー環境変数」にある `Path` を選択し、「編集」をクリックする。<br>
-<img src="../image/CakePHPの導入方法/Step4/image3.png" width="700">
+<img src="../image/CakePHPの導入方法/Step4/image3.png" width="500">
 
 #### 手順3：PHPのフォルダーを追加する
 
